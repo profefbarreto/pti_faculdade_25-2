@@ -1,46 +1,49 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using SistemaCadastro.Data;
+﻿using SistemaCadastro.Data;
 using SistemaCadastro.Models;
-using System;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 
-
-namespace SistemaCadastro
+class Program
 {
-    public class Program
+    static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        using var context = new AppDbContext();
+        context.Database.EnsureCreated();
+
+        while (true)
         {
-            using IHost host = CreateHostBuilder(args).Build();
-            var context = host.Services.GetRequiredService<AppDbContext>();
-            context.Database.EnsureCreated();
+            Console.WriteLine("\nMENU:");
+            Console.WriteLine("1. Cadastrar Aluno");
+            Console.WriteLine("2. Listar Alunos");
+            Console.WriteLine("3. Excluir Aluno");
+            Console.WriteLine("0. Sair");
+            Console.Write("Escolha uma opção: ");
+            string opcao = Console.ReadLine();
 
-            bool sair = false;
-            while (!sair)
+            switch (opcao)
             {
-                Console.WriteLine("\n--- Menu Principal ---");
-                Console.WriteLine("1. Cadastrar Aluno");
-                Console.WriteLine("0. Sair");
-                Console.Write("Escolha uma opção: ");
-
-                switch (Console.ReadLine())
-                {
-                    case "1":
-                        CadastrarAluno(context);
-                        break;
-                    case "0":
-                        sair = true;
-                        break;
-                    default:
-                        Console.WriteLine("Opção inválida.");
-                        break;
-                }
+                case "1":
+                    CadastrarAluno(context);
+                    break;
+                case "2":
+                    ListarAlunos(context);
+                    break;
+                case "3":
+                    ExcluirAluno(context);
+                    break;
+                case "0":
+                    return;
+                default:
+                    Console.WriteLine("Opção inválida.");
+                    break;
             }
         }
+    }
 
-        static void CadastrarAluno(AppDbContext ctx)
+    static void CadastrarAluno(AppDbContext ctx)
+    {
+        try
         {
             Console.Write("Digite o nome do aluno: ");
             string nome = Console.ReadLine();
@@ -60,24 +63,57 @@ namespace SistemaCadastro
             Console.Write("Digite a senha do aluno: ");
             string senha = Console.ReadLine();
 
-            var aluno = new Aluno(nome, documento, matricula, curso, login, senha);
+            Aluno aluno = new Aluno(nome, documento, matricula, curso, login, senha);
             ctx.Alunos.Add(aluno);
             ctx.SaveChanges();
 
             Console.WriteLine("Aluno cadastrado com sucesso!");
         }
+        catch (Exception ex)
+        {
+            ctx.MensagensErro.Add(new MensagemErro(ex.Message));
+            ctx.SaveChanges();
+            Console.WriteLine("Erro ao cadastrar aluno.");
+        }
+    }
 
-        static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((context, config) =>
-                {
-                    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-                })
-                .ConfigureServices((context, services) =>
-                {
-                    var connectionString = context.Configuration.GetConnectionString("DefaultConnection");
-                    services.AddDbContext<AppDbContext>(options =>
-                        options.UseSqlite(connectionString));
-                });
+    static void ListarAlunos(AppDbContext ctx)
+    {
+        var alunos = ctx.Alunos.ToList(); // Adicionado 'using System.Linq'
+
+        if (!alunos.Any()) 
+        {
+            Console.WriteLine("Nenhum aluno encontrado.");
+            return;
+        }
+
+        Console.WriteLine("\nLista de Alunos:");
+        foreach (var aluno in alunos)
+        {
+            Console.WriteLine($"ID: {aluno.Id}, Nome: {aluno.Nome}, Documento: {aluno.Documento}, Matrícula: {aluno.Matricula}, Curso: {aluno.Curso}");
+        }
+    }
+
+    static void ExcluirAluno(AppDbContext ctx)
+    {
+        Console.Write("Digite o ID do aluno a ser excluído: ");
+        if (int.TryParse(Console.ReadLine(), out int alunoId))
+        {
+            var aluno = ctx.Alunos.FirstOrDefault(a => a.Id == alunoId);
+            if (aluno != null)
+            {
+                ctx.Alunos.Remove(aluno);
+                ctx.SaveChanges();
+                Console.WriteLine("Aluno excluído com sucesso.");
+            }
+            else
+            {
+                Console.WriteLine("Aluno não encontrado.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("ID inválido.");
+        }
     }
 }
