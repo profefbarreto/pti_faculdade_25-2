@@ -1,0 +1,12 @@
+/SistemaCadastro
+    /Data
+        AppDbContext.cs
+    /Models
+        Usuario.cs
+        Pessoa.cs
+        Aluno.cs
+        Funcionario.cs
+        Administrador.cs
+        MensagemErro.cs
+    Program.cs
+    SistemaCadastro.csproj
