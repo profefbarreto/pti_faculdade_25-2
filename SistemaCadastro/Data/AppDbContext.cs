@@ -10,12 +10,13 @@ namespace SistemaCadastro.Data
         public DbSet<Administrador> Administradores { get; set; }
         public DbSet<MensagemErro> MensagensErro { get; set; }
 
-        // Método para configuração sem precisar de IConfiguration
+        // Configuração da conexão com SQLite
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=SistemaCadastro.db");
         }
 
+        // Definição das chaves primárias
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Aluno>().HasKey(a => a.Id);
@@ -25,3 +26,4 @@ namespace SistemaCadastro.Data
         }
     }
 }
+

@@ -1,25 +1,58 @@
-﻿using SistemaCadastro.Data;
+﻿using System;
 using SistemaCadastro.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
+using SistemaCadastro.Data;
 using System.Linq;
+
 
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
-        using var context = new AppDbContext();
-        context.Database.EnsureCreated();
-
-        while (true)
+        using (var context = new AppDbContext())
         {
-            Console.WriteLine("\nMENU:");
+            bool sair = false;
+            while (!sair)
+            {
+                Console.Clear();
+                Console.WriteLine("MENU PRINCIPAL:");
+                Console.WriteLine("1. Gerenciar Alunos");
+                Console.WriteLine("2. Gerenciar Funcionários");
+                Console.WriteLine("0. Sair");
+                Console.Write("Escolha uma opção: ");
+                var opcao = Console.ReadLine();
+
+                switch (opcao)
+                {
+                    case "1":
+                        MenuAlunos(context);
+                        break;
+                    case "2":
+                        MenuFuncionarios(context);
+                        break;
+                    case "0":
+                        sair = true;
+                        break;
+                    default:
+                        Console.WriteLine("Opção inválida!");
+                        break;
+                }
+            }
+        }
+    }
+
+    static void MenuAlunos(AppDbContext context)
+    {
+        bool voltar = false;
+        while (!voltar)
+        {
+            Console.Clear();
+            Console.WriteLine("MENU ALUNOS:");
             Console.WriteLine("1. Cadastrar Aluno");
             Console.WriteLine("2. Listar Alunos");
             Console.WriteLine("3. Excluir Aluno");
-            Console.WriteLine("0. Sair");
+            Console.WriteLine("0. Voltar");
             Console.Write("Escolha uma opção: ");
-            string opcao = Console.ReadLine();
+            var opcao = Console.ReadLine();
 
             switch (opcao)
             {
@@ -33,87 +66,153 @@ class Program
                     ExcluirAluno(context);
                     break;
                 case "0":
-                    return;
+                    voltar = true;
+                    break;
                 default:
-                    Console.WriteLine("Opção inválida.");
+                    Console.WriteLine("Opção inválida!");
                     break;
             }
         }
     }
 
-    static void CadastrarAluno(AppDbContext ctx)
+    static void MenuFuncionarios(AppDbContext context)
     {
-        try
+        bool voltar = false;
+        while (!voltar)
         {
-            Console.Write("Digite o nome do aluno: ");
-            string nome = Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("MENU FUNCIONÁRIOS:");
+            Console.WriteLine("1. Cadastrar Funcionário");
+            Console.WriteLine("2. Listar Funcionários");
+            Console.WriteLine("3. Excluir Funcionário");
+            Console.WriteLine("0. Voltar");
+            Console.Write("Escolha uma opção: ");
+            var opcao = Console.ReadLine();
 
-            Console.Write("Digite o documento do aluno: ");
-            string documento = Console.ReadLine();
-
-            Console.Write("Digite a matrícula do aluno: ");
-            string matricula = Console.ReadLine();
-
-            Console.Write("Digite o curso do aluno: ");
-            string curso = Console.ReadLine();
-
-            Console.Write("Digite o login do aluno: ");
-            string login = Console.ReadLine();
-
-            Console.Write("Digite a senha do aluno: ");
-            string senha = Console.ReadLine();
-
-            Aluno aluno = new Aluno(nome, documento, matricula, curso, login, senha);
-            ctx.Alunos.Add(aluno);
-            ctx.SaveChanges();
-
-            Console.WriteLine("Aluno cadastrado com sucesso!");
-        }
-        catch (Exception ex)
-        {
-            ctx.MensagensErro.Add(new MensagemErro(ex.Message));
-            ctx.SaveChanges();
-            Console.WriteLine("Erro ao cadastrar aluno.");
+            switch (opcao)
+            {
+                case "1":
+                    CadastrarFuncionario(context);
+                    break;
+                case "2":
+                    ListarFuncionarios(context);
+                    break;
+                case "3":
+                    ExcluirFuncionario(context);
+                    break;
+                case "0":
+                    voltar = true;
+                    break;
+                default:
+                    Console.WriteLine("Opção inválida!");
+                    break;
+            }
         }
     }
 
-    static void ListarAlunos(AppDbContext ctx)
+    static void CadastrarAluno(AppDbContext context)
     {
-        var alunos = ctx.Alunos.ToList(); // Adicionado 'using System.Linq'
+        Console.Clear();
+        Console.Write("Nome: ");
+        string nome = Console.ReadLine();
+        Console.Write("Documento: ");
+        string documento = Console.ReadLine();
+        Console.Write("Matrícula: ");
+        string matricula = Console.ReadLine();
+        Console.Write("Curso: ");
+        string curso = Console.ReadLine();
+        Console.Write("Login: ");
+        string login = Console.ReadLine();
+        Console.Write("Senha: ");
+        string senha = Console.ReadLine();
 
-        if (!alunos.Any()) 
-        {
-            Console.WriteLine("Nenhum aluno encontrado.");
-            return;
-        }
+        var aluno = new Aluno(nome, documento, matricula, curso, login, senha);
+        context.Alunos.Add(aluno);
+        context.SaveChanges();
 
-        Console.WriteLine("\nLista de Alunos:");
+        Console.WriteLine("Aluno cadastrado com sucesso!");
+        Console.ReadKey();
+    }
+
+    static void ListarAlunos(AppDbContext context)
+    {
+        Console.Clear();
+        var alunos = context.Alunos.ToList();
         foreach (var aluno in alunos)
         {
-            Console.WriteLine($"ID: {aluno.Id}, Nome: {aluno.Nome}, Documento: {aluno.Documento}, Matrícula: {aluno.Matricula}, Curso: {aluno.Curso}");
+            Console.WriteLine($"ID: {aluno.Id}, Nome: {aluno.Nome}, Curso: {aluno.Curso}");
         }
+        Console.ReadKey();
     }
 
-    static void ExcluirAluno(AppDbContext ctx)
+    static void ExcluirAluno(AppDbContext context)
     {
-        Console.Write("Digite o ID do aluno a ser excluído: ");
-        if (int.TryParse(Console.ReadLine(), out int alunoId))
+        Console.Clear();
+        Console.Write("Digite o ID do aluno a excluir: ");
+        int id = int.Parse(Console.ReadLine());
+
+        var aluno = context.Alunos.Find(id);
+        if (aluno != null)
         {
-            var aluno = ctx.Alunos.FirstOrDefault(a => a.Id == alunoId);
-            if (aluno != null)
-            {
-                ctx.Alunos.Remove(aluno);
-                ctx.SaveChanges();
-                Console.WriteLine("Aluno excluído com sucesso.");
-            }
-            else
-            {
-                Console.WriteLine("Aluno não encontrado.");
-            }
+            context.Alunos.Remove(aluno);
+            context.SaveChanges();
+            Console.WriteLine("Aluno excluído com sucesso.");
         }
         else
         {
-            Console.WriteLine("ID inválido.");
+            Console.WriteLine("Aluno não encontrado.");
         }
+        Console.ReadKey();
+    }
+
+    static void CadastrarFuncionario(AppDbContext context)
+    {
+        Console.Clear();
+        Console.Write("Nome: ");
+        string nome = Console.ReadLine();
+        Console.Write("Função: ");
+        string funcao = Console.ReadLine();
+        Console.Write("Login: ");
+        string login = Console.ReadLine();
+        Console.Write("Senha: ");
+        string senha = Console.ReadLine();
+
+        var funcionario = new Funcionario { Nome = nome, Funcao = funcao, Login = login, Senha = senha };
+        context.Funcionarios.Add(funcionario);
+        context.SaveChanges();
+
+        Console.WriteLine("Funcionário cadastrado com sucesso!");
+        Console.ReadKey();
+    }
+
+    static void ListarFuncionarios(AppDbContext context)
+    {
+        Console.Clear();
+        var funcionarios = context.Funcionarios.ToList();
+        foreach (var func in funcionarios)
+        {
+            Console.WriteLine($"ID: {func.Id}, Nome: {func.Nome}, Função: {func.Funcao}");
+        }
+        Console.ReadKey();
+    }
+
+    static void ExcluirFuncionario(AppDbContext context)
+    {
+        Console.Clear();
+        Console.Write("Digite o ID do funcionário a excluir: ");
+        int id = int.Parse(Console.ReadLine());
+
+        var func = context.Funcionarios.Find(id);
+        if (func != null)
+        {
+            context.Funcionarios.Remove(func);
+            context.SaveChanges();
+            Console.WriteLine("Funcionário excluído com sucesso.");
+        }
+        else
+        {
+            Console.WriteLine("Funcionário não encontrado.");
+        }
+        Console.ReadKey();
     }
 }

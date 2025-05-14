@@ -1,13 +1,23 @@
 namespace SistemaCadastro.Models
 {
-    public class Funcionario : Pessoa
+    public class Funcionario
     {
-        public string Cargo { get; set; }
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public string Documento { get; set; }
+        public string Funcao { get; set; }
+        public string Login { get; set; }
+        public string Senha { get; set; }
 
-        public Funcionario(string nome, string documento, string cargo, string login, string senha)
-            : base(nome, documento, login, senha)
+        public Funcionario() { }
+
+        public Funcionario(string nome, string documento, string funcao, string login, string senha)
         {
-            Cargo = cargo;
+            Nome = nome;
+            Documento = documento;
+            Funcao = funcao;
+            Login = login;
+            Senha = senha;
         }
     }
 }
