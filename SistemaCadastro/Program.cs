@@ -1,2 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using SistemaCadastro.Models;
+using SistemaCadastro.Data;
+
+Console.WriteLine("Sistema de Cadastro funcionando!");

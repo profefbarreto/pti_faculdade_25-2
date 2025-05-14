@@ -1,8 +1,25 @@
 {
   "version": 2,
-  "dgSpecHash": "5PnSD/P2OF49URx2hDplA152sQ/E8xXfc6XgnbDOcxNRxUDwk2S2rDAS1Va8sUV5RpXTnic+OvbbwMSNlDpmbA==",
+  "dgSpecHash": "aNKmixrDphacEzBCzOhm98lhyy4/s6teSD/RPfU9LOVxqwWfpyMF9aj6BbqDbO5yoIrG62IWDAhgilX5YFbSOw==",
   "success": true,
   "projectFilePath": "/home/edu/Documentos/dev/pti_faculdade_25-2/SistemaCadastro/SistemaCadastro.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/edu/.nuget/packages/microsoft.entityframeworkcore/7.0.0/microsoft.entityframeworkcore.7.0.0.nupkg.sha512",
+    "/home/edu/.nuget/packages/microsoft.entityframeworkcore.abstractions/7.0.0/microsoft.entityframeworkcore.abstractions.7.0.0.nupkg.sha512",
+    "/home/edu/.nuget/packages/microsoft.entityframeworkcore.analyzers/7.0.0/microsoft.entityframeworkcore.analyzers.7.0.0.nupkg.sha512",
+    "/home/edu/.nuget/packages/microsoft.entityframeworkcore.relational/7.0.0/microsoft.entityframeworkcore.relational.7.0.0.nupkg.sha512",
+    "/home/edu/.nuget/packages/microsoft.extensions.caching.abstractions/7.0.0/microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
+    "/home/edu/.nuget/packages/microsoft.extensions.caching.memory/7.0.0/microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
+    "/home/edu/.nuget/packages/microsoft.extensions.configuration.abstractions/7.0.0/microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
+    "/home/edu/.nuget/packages/microsoft.extensions.dependencyinjection/7.0.0/microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "/home/edu/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/7.0.0/microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "/home/edu/.nuget/packages/microsoft.extensions.logging/7.0.0/microsoft.extensions.logging.7.0.0.nupkg.sha512",
+    "/home/edu/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.0/microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
+    "/home/edu/.nuget/packages/microsoft.extensions.options/7.0.0/microsoft.extensions.options.7.0.0.nupkg.sha512",
+    "/home/edu/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
+    "/home/edu/.nuget/packages/npgsql/7.0.0/npgsql.7.0.0.nupkg.sha512",
+    "/home/edu/.nuget/packages/npgsql.entityframeworkcore.postgresql/7.0.0/npgsql.entityframeworkcore.postgresql.7.0.0.nupkg.sha512",
+    "/home/edu/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
