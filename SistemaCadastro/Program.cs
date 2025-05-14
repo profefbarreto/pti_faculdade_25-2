@@ -165,25 +165,38 @@ class Program
         Console.ReadKey();
     }
 
-    static void CadastrarFuncionario(AppDbContext context)
+  static void CadastrarFuncionario(AppDbContext context)
+{
+    Console.Write("Nome: ");
+    string nome = Console.ReadLine();
+
+    Console.Write("Documento: ");  // <- Adicione esta linha
+    string documento = Console.ReadLine();  // <- Adicione esta linha
+
+    Console.Write("Função: ");
+    string funcao = Console.ReadLine();
+
+    Console.Write("Login: ");
+    string login = Console.ReadLine();
+
+    Console.Write("Senha: ");
+    string senha = Console.ReadLine();
+
+    var funcionario = new Funcionario
     {
-        Console.Clear();
-        Console.Write("Nome: ");
-        string nome = Console.ReadLine();
-        Console.Write("Função: ");
-        string funcao = Console.ReadLine();
-        Console.Write("Login: ");
-        string login = Console.ReadLine();
-        Console.Write("Senha: ");
-        string senha = Console.ReadLine();
+        Nome = nome,
+        Documento = documento,  // <- Use o valor lido
+        Funcao = funcao,
+        Login = login,
+        Senha = senha
+    };
 
-        var funcionario = new Funcionario { Nome = nome, Funcao = funcao, Login = login, Senha = senha };
-        context.Funcionarios.Add(funcionario);
-        context.SaveChanges();
+    context.Funcionarios.Add(funcionario);
+    context.SaveChanges();
 
-        Console.WriteLine("Funcionário cadastrado com sucesso!");
-        Console.ReadKey();
-    }
+    Console.WriteLine("Funcionário cadastrado com sucesso!");
+}
+
 
     static void ListarFuncionarios(AppDbContext context)
     {
