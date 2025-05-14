@@ -1,10 +1,17 @@
-public class MensagemErro
-{
-    public string Mensagem { get; set; }
+using System;
 
-    // Construtor
-    public MensagemErro(string mensagem)
+namespace SistemaCadastro.Models
+{
+    public class MensagemErro
     {
-        Mensagem = mensagem ?? throw new ArgumentNullException(nameof(mensagem)); // Garante que a mensagem não seja nula
+        public int Id { get; set; }
+        public string Mensagem { get; set; }
+        public DateTime DataHora { get; set; }
+
+        public MensagemErro(string mensagem)
+        {
+            Mensagem = mensagem;
+            DataHora = DateTime.Now;
+        }
     }
 }

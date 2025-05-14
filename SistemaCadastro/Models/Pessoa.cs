@@ -1,18 +1,15 @@
 namespace SistemaCadastro.Models
 {
-    public abstract class Pessoa
+    public abstract class Pessoa : Usuario
     {
         public string Nome { get; set; }
         public string Documento { get; set; }
 
-        // Construtor que recebe nome e documento
-        public Pessoa(string nome, string documento)
+        protected Pessoa(string nome, string documento, string login, string senha)
+            : base(login, senha)
         {
-            Nome = nome ?? throw new ArgumentNullException(nameof(nome));
-            Documento = documento ?? throw new ArgumentNullException(nameof(documento));
+            Nome = nome;
+            Documento = documento;
         }
-
-        // Método para validar o documento (pode ser implementado posteriormente)
-        public abstract bool ValidarDocumento();
     }
 }
