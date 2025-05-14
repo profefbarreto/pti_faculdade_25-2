@@ -7,3 +7,13 @@ CREATE TABLE Aluno (
     Matricula VARCHAR(20) UNIQUE NOT NULL,
     Curso VARCHAR(100) NOT NULL
 );
+
+
+CREATE TABLE Funcionarios (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Nome TEXT NOT NULL,
+    Documento TEXT NOT NULL,
+    Funcao TEXT NOT NULL,
+    Login TEXT NOT NULL,
+    Senha TEXT NOT NULL
+);
