@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/edu/Documentos/pti/pti_faculdade_25-2/SistemaCadastro/SistemaCadastro.csproj": {}
+    "/home/edu/Documentos/pti_faculdade_25-2/SistemaCadastro/SistemaCadastro.csproj": {}
   },
   "projects": {
-    "/home/edu/Documentos/pti/pti_faculdade_25-2/SistemaCadastro/SistemaCadastro.csproj": {
+    "/home/edu/Documentos/pti_faculdade_25-2/SistemaCadastro/SistemaCadastro.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/edu/Documentos/pti/pti_faculdade_25-2/SistemaCadastro/SistemaCadastro.csproj",
+        "projectUniqueName": "/home/edu/Documentos/pti_faculdade_25-2/SistemaCadastro/SistemaCadastro.csproj",
         "projectName": "SistemaCadastro",
-        "projectPath": "/home/edu/Documentos/pti/pti_faculdade_25-2/SistemaCadastro/SistemaCadastro.csproj",
+        "projectPath": "/home/edu/Documentos/pti_faculdade_25-2/SistemaCadastro/SistemaCadastro.csproj",
         "packagesPath": "/home/edu/.nuget/packages/",
-        "outputPath": "/home/edu/Documentos/pti/pti_faculdade_25-2/SistemaCadastro/obj/",
+        "outputPath": "/home/edu/Documentos/pti_faculdade_25-2/SistemaCadastro/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/edu/.nuget/NuGet/NuGet.Config"
@@ -37,7 +37,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -80,7 +81,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.409/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8891kVdByKc=",
+  "dgSpecHash": "LIPuiTBpI2c=",
   "success": true,
-  "projectFilePath": "/home/edu/Documentos/pti/pti_faculdade_25-2/SistemaCadastro/SistemaCadastro.csproj",
+  "projectFilePath": "/home/edu/Documentos/pti_faculdade_25-2/SistemaCadastro/SistemaCadastro.csproj",
   "expectedPackageFiles": [
     "/home/edu/.nuget/packages/microsoft.data.sqlite.core/9.0.5/microsoft.data.sqlite.core.9.0.5.nupkg.sha512",
     "/home/edu/.nuget/packages/microsoft.entityframeworkcore/9.0.5/microsoft.entityframeworkcore.9.0.5.nupkg.sha512",
